@@ -6,14 +6,6 @@ exports.up = function (knex) {
             tbl.string('name', 128).notNullable()
             tbl.string('description', 128).notNullable()
             tbl.boolean('completed').notNullable()
-            tbl
-                .integer('action_id')
-                .unsigned()
-                .notNullable()
-                .references('id')
-                .inTable('actions')
-                .onDelete('CASCADE')
-                .onUpdate('CASCADE');
         })
 };
 
