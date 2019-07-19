@@ -4,7 +4,6 @@ module.exports = {
     find,
     findById,
     insert,
-
 }
 
 function find() {

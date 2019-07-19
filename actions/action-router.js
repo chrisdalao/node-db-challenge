@@ -15,26 +15,41 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const { id } = req.params;
     Actions.findById(id)
-        .then(project => {
-            if (project) {
-                res.status(200).json(project);
+        .then(action => {
+            if (action) {
+                res.status(200).json(action);
             } else {
-                res.status(400).json({ message: 'Could not find project with given id.' });
+                res.status(400).json({ message: 'Could not find action with given id.' });
             }
         })
         .catch(err => {
-            res.status(500).json({ message: 'Failed to get project' });
+            res.status(500).json({ message: 'Failed to get action' });
+        })
+});
+
+router.get('/:id/projects', (req, res) => {
+    const { id } = req.params;
+    Actions.findByProjectId(id)
+        .then(action => {
+            if (action) {
+                res.status(200).json(action);
+            } else {
+                res.status(400).json({ message: 'Could not find action with given id.' });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Failed to get action' });
         })
 });
 
 router.post('/', (req, res) => {
-    const projectData = req.body;
-    Actions.insert(projectData)
-        .then(project => {
-            res.status(201).json(project)
+    const actionData = req.body;
+    Actions.insert(actionData)
+        .then(action => {
+            res.status(201).json(action)
         })
         .catch(err => {
-            res.status(500).json({ message: 'Failed to create new project' })
+            res.status(500).json({ message: 'Failed to create new action' })
         })
 });
 

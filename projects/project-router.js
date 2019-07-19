@@ -1,5 +1,6 @@
 const express = require('express');
 const Projects = require('./project-model.js');
+const Actions = require('../actions/action-model.js');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -18,7 +19,10 @@ router.get('/:id', (req, res) => {
     Projects.findById(id)
         .then(project => {
             if (project) {
-                res.status(200).json(project);
+                Actions.findByProjectId(id)
+                    .then(actions => {
+                        res.status(200).json({ project, actions });
+                    })
             } else {
                 res.status(400).json({ message: 'Could not find project with given id.' });
             }
