@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
             if (project) {
                 Actions.findByProjectId(id)
                     .then(actions => {
-                        res.status(200).json({ project, actions });
+                        res.status(200).json({ ...project, actions: actions });
                     })
             } else {
                 res.status(400).json({ message: 'Could not find project with given id.' });
