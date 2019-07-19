@@ -1,9 +1,33 @@
 const db = require('../data/db-config.js');
 
 module.exports = {
-    getActions
+    find,
+    findById,
+    insert
 }
 
-function getActions() {
+function find() {
     return db('actions');
+}
+
+
+function findById(id) {
+    return db('actions')
+        .where({ id })
+        .first()
+        .then(action => {
+            if (action) {
+                return action;
+            } else {
+                return null;
+            }
+        })
+}
+
+function insert(action) {
+    return db('actions')
+        .insert(action)
+        .then(id => {
+            return findById(id[0]);
+        });
 }
